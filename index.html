@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>২৪টি কালো গোলাপ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--w:#F8F8F5;--s:#A9B8A1;--c:#252525;--g:#D9DAD6;--o:#D97836;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:var(--c);color:var(--w);font-family:'Hind Siliguri','Noto Sans Bengali',sans-serif;overflow:hidden}
+#stage{position:absolute;inset:0}
+#stage::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:3;background:radial-gradient(ellipse at center,transparent 58%,rgba(20,12,6,.2))}
+.sc{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.sv{width:min(100vw,177.78vh);aspect-ratio:16/9;display:block;overflow:hidden}
+#s6{background:#F8F8F5}
+#sub{position:fixed;left:50%;transform:translateX(-50%);bottom:76px;width:min(860px,92vw);text-align:center;font-size:clamp(16px,2.5vw,27px);line-height:1.6;padding:.35em .8em;border-radius:10px;background:rgba(20,20,20,.55);color:var(--w);opacity:0;pointer-events:none;z-index:5}
+#bar{position:fixed;top:0;left:0;height:3px;background:var(--o);width:0;z-index:20}
+#ctl{position:fixed;bottom:calc(14px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);display:flex;gap:8px;align-items:center;z-index:20;background:rgba(20,20,20,.55);padding:6px 10px;border-radius:30px;backdrop-filter:blur(6px)}
+#ctl button{background:none;border:1px solid rgba(248,248,245,.35);color:var(--w);border-radius:50%;width:36px;height:36px;font-size:15px;cursor:pointer}
+#ctl button:hover,#ctl button:focus-visible{border-color:var(--o);outline:none}
+#dots{display:flex;gap:6px;margin:0 6px}
+#dots i{width:8px;height:8px;border-radius:50%;background:rgba(248,248,245,.3);cursor:pointer}
+#dots i.on{background:var(--o)}
+#intro{position:fixed;inset:0;z-index:50;background:var(--c);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;gap:18px}
+#intro h1{font-weight:500;font-size:clamp(34px,7vw,68px);color:var(--w)}
+#intro p{color:var(--g);font-size:clamp(16px,2.6vw,24px)}
+#intro button{margin-top:14px;background:none;border:1.5px solid var(--o);color:var(--w);padding:12px 30px;border-radius:40px;font-weight:500;font-size:clamp(16px,2.4vw,21px);font-family:inherit;cursor:pointer;transition:.3s}
+#intro button:hover{background:var(--o)}
+.ct{position:absolute;top:4%;left:5%;font-size:clamp(14px,2.4vw,24px);color:#252525;background:rgba(248,248,245,.7);padding:.2em .7em;border-radius:20px}
+.bd{position:absolute;top:7%;left:0;right:0;text-align:center;color:#F8F8F5;opacity:0;text-shadow:0 2px 12px #000;z-index:4}
+.bd b{display:block;font-weight:500;font-size:clamp(22px,4.6vw,46px)}
+.bd span{font-size:clamp(15px,2.4vw,24px)}
+.tag{position:absolute;top:3%;right:4%;font-size:clamp(11px,1.5vw,14px);color:#fff;opacity:.7;z-index:4}
+#lt{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);width:min(620px,90vw);max-height:66vh;overflow:auto;background:#fffdf8;color:#252525;border:1px solid var(--g);box-shadow:0 20px 60px rgba(0,0,0,.12);border-radius:6px;padding:clamp(18px,4vw,40px);font-size:clamp(15px,2vw,19px);line-height:1.95}
+#lt p{margin-bottom:1em}
+#lt .w{opacity:0}
+#fin{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;color:#252525;opacity:0;pointer-events:none;padding:20px}
+#fin h2{font-weight:500;letter-spacing:.3em;font-size:clamp(26px,6vw,56px)}
+#fin p{font-size:clamp(15px,2.4vw,22px);color:#555}
+@media(max-width:720px){#s6 .side{opacity:.25}}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<main id="stage" aria-live="off"></main>
+<div id="sub" role="status"></div>
+<div id="ctl" hidden>
+<button id="bp" aria-label="আগের দৃশ্য">‹</button>
+<button id="bpl" aria-label="বিরতি / চালু">❚❚</button>
+<button id="bn" aria-label="পরের দৃশ্য">›</button>
+<div id="dots"></div>
+<button id="bm" aria-label="সঙ্গীত চালু/বন্ধ">♪</button>
+<button id="br" aria-label="আবার শুরু">↺</button>
+</div>
+<div id="intro">
+<h1>একটা ছোট্ট গল্প...</h1>
+<p>২৪টি কালো গোলাপের সঙ্গে কিছু না বলা অনুভূতি।</p>
+<button id="go">গল্পটি শুরু হোক</button>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+const $=s=>document.querySelector(s),SK='#e3b78f',SD='#c99468',bn=n=>n.toLocaleString('bn-BD'),OL='stroke="#111" stroke-width="1.5"';
+const rose=r=>`<circle r="${r}" fill="#171717" stroke="#000"/><path d="M${-r*.5} 0a${r*.5} ${r*.5} 0 1 1 ${r*.5} ${r*.5}a${r*.28} ${r*.28} 0 1 1 ${-r*.28} ${-r*.28}" fill="none" stroke="#666" stroke-width="1"/><path d="M${-r*.8} ${-r*.2}q${r*.3} ${-r*.8} ${r*.8} ${-r*.7}" fill="none" stroke="#3a3a3a"/>`;
+const bqt=()=>{let s='<path d="M-30 -4L30 -4L9 56L-9 56z" fill="#2a2a2a" stroke="#000"/><path d="M-26 -3L0 40L26 -3" fill="none" stroke="#444"/>';for(let i=0;i<24;i++){const a=i*2.399,r=Math.sqrt((i+.5)/24);s+=`<g transform="translate(${(Math.cos(a)*r*24).toFixed(1)} ${(-14+Math.sin(a)*r*13).toFixed(1)})">${rose(7)}</g>`}return s+'<path d="M-10 46q10-10 20 0-10 7-20 0z" fill="#D97836"/><path d="M-4 50l-9 9M4 50l9 9" stroke="#D97836" stroke-width="3" stroke-linecap="round"/>'};
+const held=bq=>bq?`<g transform="translate(24 -84) scale(.5)"><g class="bq">${bqt()}</g></g>`:'';
+const arms=(c,e)=>`<rect x="-47" y="-126" width="17" height="80" rx="8" fill="${c}" stroke="${e}" stroke-width="1.5"/><rect x="30" y="-126" width="17" height="80" rx="8" fill="${c}" stroke="${e}" stroke-width="1.5"/><circle cx="-38" cy="-42" r="8" fill="${SK}" ${OL}/><circle cx="38" cy="-42" r="8" fill="${SK}" ${OL}/>`;
+const shoes=(c)=>[-17,2].map((x,i)=>`<g class="${i?'lR':'lL'}"><rect x="${x}" y="-40" width="15" height="38" rx="6" fill="${c}"/><rect x="${x-3}" y="-8" width="21" height="9" rx="4" fill="#f4f4f0" stroke="#111" stroke-width="1.5"/></g>`).join('');
+const anik=(id,half,bq)=>`<g id="${id}"><g class="f">${half?'':shoes('#2a2a2a')}
+<path d="M-34 -126Q0 -142 34 -126L41 -34Q0 -24 -41 -34z" fill="#1c1c1c" stroke="#000" stroke-width="2"/>${arms('#232323','#000')}
+<path d="M-24 -134Q0 -112 24 -134Q34 -120 0 -106Q-34 -120 -24 -134z" fill="#101010" stroke="#000" stroke-width="1.5"/>
+<path d="M-7 -112V-84M7 -112V-84M-20 -56Q0 -48 20 -56" stroke="#777" stroke-width="2" fill="none" stroke-linecap="round"/>
+<g class="hd"><rect x="-7" y="-140" width="14" height="14" fill="${SD}"/>
+<circle cx="-22" cy="-158" r="5" fill="${SK}" ${OL}/><circle cx="22" cy="-158" r="5" fill="${SK}" ${OL}/>
+<path d="M-21-166Q-22-137-8-130Q0-127 8-130Q22-137 21-166Q21-187 0-187Q-21-187-21-166z" fill="${SK}" ${OL}/>
+<path d="M8-186Q21-184 21-166Q22-137 8-130Q16-150 8-186z" fill="${SD}" opacity=".35"/>
+<path d="M-25-162C-33-192-14-208 5-205C24-206 35-190 27-160C25-174 19-181 8-183C-2-180-15-180-25-162z" fill="#0d0d0d" stroke="#000"/>
+<path d="M-8-204l6-10 5 9 7-8 2 10" fill="#0d0d0d"/>
+<rect x="-19" y="-166" width="16" height="12" rx="3" fill="#fff" fill-opacity=".2" stroke="#d97836" stroke-width="2.6"/><rect x="3" y="-166" width="16" height="12" rx="3" fill="#fff" fill-opacity=".2" stroke="#d97836" stroke-width="2.6"/>
+<path d="M-3-161h6M-19-162L-24-164M19-162L24-164" stroke="#d97836" stroke-width="2"/>
+<g class="bl"><circle cx="-11" cy="-160" r="2.4" fill="#111"/><circle cx="11" cy="-160" r="2.4" fill="#111"/></g>
+<path d="M-19-172Q-11-177-3-172M3-172Q11-177 19-172" stroke="#0d0d0d" stroke-width="3" fill="none" stroke-linecap="round"/>
+<path d="M0-157q-4 10-1 11h4" stroke="#8a5a3b" fill="none" stroke-width="1.5"/>
+<path d="M-10-142Q-5-148 0-145Q5-148 10-142Q5-140 0-141Q-5-140-10-142z" fill="#0d0d0d"/>
+<path d="M-4-137Q0-135 4-137" stroke="#6a3a2a" fill="none" stroke-width="1.5"/>
+<path d="M-4-133Q0-129 4-133Q2-128 0-127Q-2-128-4-133z" fill="#0d0d0d"/></g>${held(bq)}</g></g>`;
+const nubah=(id,half,bq)=>`<g id="${id}"><g class="f">${half?'':shoes('#3a3a3a')}
+<path d="M-30 -128Q0 -142 30 -128L48 -14Q0 -4 -48 -14z" fill="#eef1e8" stroke="#bfc8b4" stroke-width="1.5"/><path d="M-16-128Q0-112 16-128" fill="none" stroke="#A9B8A1" stroke-width="3"/><path d="M0-112V-60" stroke="#c9d3c2" stroke-width="2" stroke-dasharray="3 3"/>
+<g fill="#A9B8A1" opacity=".9"><circle cx="-18" cy="-70" r="3.5"/><circle cx="6" cy="-50" r="3.5"/><circle cx="22" cy="-88" r="3.5"/><circle cx="-6" cy="-98" r="3.5"/><circle cx="-26" cy="-36" r="3.5"/><circle cx="30" cy="-40" r="3.5"/><path d="M-12-60q6-8 12 0-6 4-12 0zM12-70q6-8 12 0-6 4-12 0z"/></g>
+<path d="M-47 -16Q0 -6 47 -16" stroke="#A9B8A1" stroke-width="5" fill="none"/>${arms('#ebe5d6','#cfc8b6')}
+<g fill="#cf9a92"><circle cx="-38" cy="-52" r="4"/><circle cx="-33" cy="-48" r="3.5"/><circle cx="-43" cy="-48" r="3.5"/></g>
+<g class="hd"><path d="M-37-150C-37-190-18-205 0-205S37-190 37-150C37-130 46-114 54-96Q0-80-54-96C-46-114-37-130-37-150z" fill="#a3b79f" stroke="#5f7259" stroke-width="1.5"/><path d="M-30-176Q-14-200 8-200Q-10-194-20-170z" fill="#c3d3bf" opacity=".7"/>
+<path d="M-19-155Q-20-130-6-129Q0-128 6-129Q20-130 19-155Q18-177 0-177Q-18-177-19-155z" fill="#efc7a4" ${OL}/><path d="M10-176Q19-172 19-155Q20-132 6-129Q13-148 10-176z" fill="#d9a67f" opacity=".3"/>
+<path d="M-22-158Q0-186 22-158" fill="none" stroke="#a3b79f" stroke-width="8"/><path d="M-19-160Q0-178 19-160" fill="none" stroke="#6f8368" stroke-width="1.2" opacity=".6"/>
+<path d="M-30-122Q-22-102-38-92M30-122Q23-104 40-92M-14-124Q-10-104-22-90M14-124Q10-104 22-90M0-128V-96" stroke="#6f8368" stroke-width="1.4" fill="none" opacity=".75"/><path d="M-26-112Q-30-100-42-96" stroke="#d6e3d2" stroke-width="2" fill="none" opacity=".7"/><circle cx="15" cy="-126" r="3.2" fill="#D97836" stroke="#8a4a1c"/>
+<circle cx="-11" cy="-146" r="5.5" fill="#e88f82" opacity=".35"/><circle cx="11" cy="-146" r="5.5" fill="#e88f82" opacity=".35"/>
+<g class="bl"><ellipse cx="-8" cy="-155" rx="4" ry="3.4" fill="#fff"/><ellipse cx="8" cy="-155" rx="4" ry="3.4" fill="#fff"/><circle cx="-8" cy="-155" r="2.7" fill="#3b2418"/><circle cx="8" cy="-155" r="2.7" fill="#3b2418"/><circle cx="-8" cy="-155" r="1.3" fill="#000"/><circle cx="8" cy="-155" r="1.3" fill="#000"/><circle cx="-7" cy="-156.2" r=".9" fill="#fff"/><circle cx="9" cy="-156.2" r=".9" fill="#fff"/><path d="M-13-155Q-8-160-3-155M3-155Q8-160 13-155" stroke="#111" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M-13-155l-2-2M13-155l2-2" stroke="#111" stroke-width="1.2"/></g>
+<path d="M-14-163Q-8-168-2-164M2-164Q8-168 14-163" stroke="#1a1a1a" stroke-width="2" fill="none" stroke-linecap="round"/>
+<path d="M0-154q-3 8 0 9h3" stroke="#8a5a3b" fill="none" stroke-width="1.3"/><circle cx="9" cy="-144" r="1.2" fill="#6a3a2a"/>
+<path d="M-5-139Q0-136 5-139Q0-141-5-139z" fill="#c9695f" stroke="#a5483f" stroke-width=".8"/></g>${held(bq)}</g></g>`;
+const SVG=(x,extra='')=>`<svg class="sv" viewBox="0 0 800 450" role="img" aria-label="দৃশ্য"><defs>${extra}</defs><g class="cm2"><g class="cam">${x}</g></g></svg>`;
+const BG=c=>`<rect x="-200" y="-200" width="1200" height="900" fill="${c}"/>`;
+const NP='50% 90%';
+
+const legs=(tl,id,d,t)=>{const n=Math.max(1,Math.floor(d/.22));tl.to(`#${id} .lL`,{rotation:22,transformOrigin:'50% 0%',duration:.22,yoyo:true,repeat:n,ease:'sine.inOut'},t).to(`#${id} .lR`,{rotation:-22,transformOrigin:'50% 0%',duration:.22,yoyo:true,repeat:n,ease:'sine.inOut'},t).to(`#${id} .f`,{y:-3,duration:.22,yoyo:true,repeat:n},t)};
+const walk=(tl,id,x0,x1,d,t)=>{tl.fromTo(`#${id}`,{x:x0},{x:x1,duration:d,ease:'none'},t);legs(tl,id,d,t)};
+const subEl=$('#sub');
+const setSub=x=>{gsap.killTweensOf(subEl);if(!x){gsap.set(subEl,{opacity:0});return}gsap.timeline().to(subEl,{opacity:0,duration:.2}).call(()=>subEl.textContent=x).to(subEl,{opacity:1,duration:.6})};
+const sub=(tl,t,x)=>tl.call(setSub,[x],t);
+
+const sc=[],b=[];
+const TR=[...Array(24)].map((_,i)=>{const a=i*2.399,r=Math.sqrt((i+.6)/24);return[400+Math.cos(a)*r*175,135+Math.sin(a)*r*86]});
+sc[0]=()=>SVG(`${BG('#F8F8F5')}<circle cx="650" cy="70" r="130" fill="#f3d9b5" opacity=".45"/><g opacity=".3"><path d="M620 -20L410 340L480 340z" fill="#fff0cf"/><path d="M700 -20L580 340L640 340z" fill="#fff0cf"/></g>
+<path d="M-100 330Q200 300 400 325T900 320V600H-100z" fill="#A9B8A1"/><path d="M-100 365Q300 340 900 360V600H-100z" fill="#93a58b"/>
+<path d="M385 345Q392 250 380 200Q400 215 420 200Q408 250 418 345z" fill="#4a3b30"/><path d="M395 250Q330 220 300 200M410 240Q470 215 505 190" stroke="#4a3b30" stroke-width="8" fill="none" stroke-linecap="round"/>
+<g class="lv" fill="#7f9378">${[[400,130,170,88],[290,165,95,62],[515,165,100,64],[345,92,85,52],[462,92,90,54]].map(e=>`<ellipse cx="${e[0]}" cy="${e[1]}" rx="${e[2]}" ry="${e[3]}"/>`).join('')}</g>
+<g class="lv" fill="#93a58b" opacity=".8"><ellipse cx="400" cy="120" rx="120" ry="55"/></g>
+${anik('a0',0)}<path id="pp0" d="M324 296L380 296L356 350L348 350z" fill="#2a2a2a"/>
+${TR.map(p=>`<g class="rz" data-x="${p[0]}" data-y="${p[1]}">${rose(9)}</g>`).join('')}
+<g id="bw0"><path d="M340 350q12-12 24 0-12 8-24 0z" fill="#D97836"/></g>`)+`<div class="ct" id="ct">০ / ২৪</div>`;
+b[0]=tl=>{const S=(t,x)=>sub(tl,t,x),R=gsap.utils.toArray('#s0 .rz');R.forEach(r=>gsap.set(r,{x:+r.dataset.x,y:+r.dataset.y}));
+gsap.set('#a0',{x:-80,y:400});gsap.set('#pp0,#bw0',{opacity:0});gsap.to('#s0 .lv',{x:3,y:3,duration:2.2,yoyo:true,repeat:-1,ease:'sine.inOut'});
+tl.fromTo('#s0 .cam',{scale:.88,svgOrigin:'400 225'},{scale:1.15,duration:18,ease:'sine.inOut'},0);
+walk(tl,'a0',-80,330,4,.5);S(1,'কিছু অনুভূতির হিসাব হয় না...');
+tl.to('#a0 .hd',{rotation:-9,transformOrigin:NP,duration:.7},4.6);S(6,'তবুও আজ তোমার জন্য গুনে গুনে ২৪টি কালো গোলাপ।');
+tl.to('#pp0',{opacity:1,duration:.4},5);
+R.forEach((r,i)=>{const a=i*2.399,q=Math.sqrt((i+.5)/24),t=5.4+i*.34;tl.to(r,{x:352+Math.cos(a)*q*22,y:300+Math.sin(a)*q*12,duration:.7,ease:'power2.in'},t).call(()=>$('#ct').textContent=bn(i+1)+' / ২৪',null,t+.7)});
+S(12.5,'প্রতিটি ফুলের সঙ্গে জড়িয়ে আছে কিছু স্মৃতি, কিছু স্বপ্ন আর অনেক না বলা কথা।');
+tl.to('#a0 .hd',{rotation:0,duration:.5},14.2).to('#bw0',{opacity:1,duration:.5},14.4).fromTo('#bw0',{scale:0,svgOrigin:'352 350'},{scale:1,duration:.6,ease:'back.out(3)'},14.4);
+tl.to(['#a0','#pp0','#bw0',...R],{x:'+=520',duration:3.6,ease:'power1.in'},16.8);legs(tl,'a0',3.6,16.8);tl.to('#ct',{opacity:0},16.8)};
+
+const BL=o=>[[0,150,70],[80,190,60],[150,130,80],[240,170,70],[320,205,60],[390,140,90],[490,180,70],[570,120,80],[660,165,70],[730,150,70]].map((r,i)=>`<rect x="${r[0]+o}" y="${330-r[1]}" width="${r[2]}" height="${r[1]}" fill="${i%2?'#c9cbc5':'#D9DAD6'}"/>`).join('');
+sc[1]=()=>SVG(`${BG('#f4efe4')}<g id="fb">${BL(0)}${BL(800)}${BL(1600)}</g>
+<rect x="-200" y="330" width="1300" height="200" fill="#8e8f8a"/><rect x="-200" y="326" width="1300" height="8" fill="#b9bbb3"/>
+<g id="mt">${[...Array(16)].map((_,i)=>`<rect x="${i*160+30}" y="290" width="6" height="40" fill="#4a3b30"/><circle cx="${i*160+33}" cy="276" r="26" fill="#7f9378"/>`).join('')}</g>
+<g id="rd">${[...Array(14)].map((_,i)=>`<rect x="${i*80}" y="402" width="44" height="5" fill="#F8F8F5" opacity=".8"/>`).join('')}</g>
+<g id="tp"><path d="M-95 -20V-78Q-95 -92 -80 -92H40Q60 -92 70 -70L95 -40V-20z" fill="#3f6b4f"/><path d="M-84 -82H38Q50 -82 58 -66L72 -46H-84z" fill="#cfe0e3"/>
+<g id="px" opacity="0"><circle cx="-34" cy="-62" r="12" fill="${SK}"/><path d="M-46 -64c-1-14 8-18 13-17 10 0 14 7 11 17-3-6-6-9-12-9s-9 3-12 9z" fill="#0d0d0d"/><rect x="-42" y="-66" width="8" height="6" fill="none" stroke="#d97836" stroke-width="1.5"/><rect x="-31" y="-66" width="8" height="6" fill="none" stroke="#d97836" stroke-width="1.5"/><g transform="translate(-4 -52) scale(.45)">${bqt()}</g></g>
+<rect x="-95" y="-42" width="190" height="6" fill="#D97836"/>
+<g class="wh"><circle cx="-58" cy="-2" r="19" fill="#222"/><circle cx="-58" cy="-2" r="8" fill="#aaa"/><path d="M-58 -2h19" stroke="#eee" stroke-width="3"/></g>
+<g class="wh"><circle cx="58" cy="-2" r="19" fill="#222"/><circle cx="58" cy="-2" r="8" fill="#aaa"/><path d="M58 -2h19" stroke="#eee" stroke-width="3"/></g></g>
+${anik('a1',0,1)}`);
+b[1]=tl=>{const S=(t,x)=>sub(tl,t,x);gsap.set('#tp',{x:950,y:398});gsap.set('#a1',{x:-80,y:398});
+tl.to('#s1 .cam',{scale:1.06,svgOrigin:'540 330',duration:8},0).to('#tp',{x:560,duration:2.6,ease:'power2.out'},.4);
+walk(tl,'a1',-80,450,3.8,1);tl.to('#a1',{opacity:0,duration:.3},4.9).to('#px',{opacity:1,duration:.4},4.9);
+tl.to('#tp',{y:'-=2',yoyo:true,repeat:60,duration:.15},5.4).to('#s1 .wh',{rotation:'+=1800',transformOrigin:'50% 50%',duration:15,ease:'none'},5.4)
+.to('#fb',{x:-800,duration:5,repeat:2,ease:'none'},5.4).to('#mt',{x:-160,duration:.9,repeat:15,ease:'none'},5.4).to('#rd',{x:-80,duration:.3,repeat:48,ease:'none'},5.4);
+S(6,'কিছু পথ হয়তো সহজ নয়...');tl.to('#s1 .cam',{scale:2.7,svgOrigin:'540 340',duration:1.6,ease:'power2.inOut'},9).to('#s1 .cam',{scale:1.05,duration:1.6,ease:'power2.inOut'},13);
+S(12,'তবুও কিছু মানুষের জন্য পথ চলতে ইচ্ছে করে।');tl.to({},{duration:1},20)};
+
+sc[2]=()=>SVG(`${BG('#eef0e8')}<g id="hl"><path d="M-200 330Q0 220 200 300T600 280T1000 310V400H-200z" fill="#A9B8A1" opacity=".8"/>${[...Array(12)].map((_,i)=>`<circle cx="${i*90-60}" cy="${290-(i%3)*12}" r="30" fill="#7f9378" opacity=".8"/>`).join('')}</g>
+<rect x="640" y="250" width="220" height="130" fill="#d9dad6"/><path d="M630 250L750 215L870 250z" fill="#252525"/><rect x="-200" y="378" width="1300" height="16" fill="#bdbdb6"/><rect x="-200" y="394" width="1300" height="200" fill="#8fa18a"/><path d="M-200 404H1100M-200 420H1100" stroke="#555" stroke-width="3"/>${[...Array(30)].map((_,i)=>`<rect x="${i*40-100}" y="400" width="10" height="26" fill="#6b5a4a" opacity=".6"/>`).join('')}
+<clipPath id="wc"><rect x="230" y="-100" width="56" height="42"/></clipPath>
+<g id="tr"><rect x="0" y="-130" width="520" height="124" rx="14" fill="#e9e3d6"/><rect x="0" y="-136" width="520" height="12" rx="6" fill="#252525"/><rect x="0" y="-48" width="520" height="8" fill="#D97836"/><rect x="330" y="-104" width="80" height="98" fill="#2d2d2d"/>${[20,90,160,230,430].map(x=>`<rect x="${x}" y="-100" width="56" height="42" rx="4" fill="#cbd9dc"/>`).join('')}
+<g clip-path="url(#wc)"><g transform="translate(258 -18) scale(.42)">${nubah('nw',1)}</g></g>
+<rect class="dl" x="330" y="-104" width="40" height="98" fill="#d8d1c0" stroke="#bbb"/><rect class="dr" x="370" y="-104" width="40" height="98" fill="#d8d1c0" stroke="#bbb"/><circle cx="60" cy="0" r="12" fill="#222"/><circle cx="440" cy="0" r="12" fill="#222"/></g>
+${nubah('n2',0)}`);
+b[2]=tl=>{const S=(t,x)=>sub(tl,t,x);gsap.set('#tr',{x:900,y:396});gsap.set('#n2',{x:510,y:392,opacity:0});
+tl.to('#s2 .cam',{scale:1.12,svgOrigin:'400 300',duration:12,ease:'sine.inOut'},0).to('#tr',{x:140,duration:7,ease:'power3.out'},.5).fromTo('#hl',{x:200},{x:-60,duration:8,ease:'power2.out'},.3);
+S(3,'দূরত্ব যতই থাকুক...');
+tl.to('#s2 .dl',{x:-36,duration:1},8).to('#s2 .dr',{x:36,duration:1},8).to('#nw',{opacity:0,duration:.4},8.6).to('#n2',{opacity:1,duration:.4},9.1);
+walk(tl,'n2',510,650,2.6,9.2);S(9.4,'কিছু পরিচিত মুখ স্মৃতিতে সবসময় থেকে যায়।');tl.to({},{duration:1},13)};
+
+sc[3]=()=>SVG(`${BG('#f6ecd9')}<rect x="-200" y="-200" width="1200" height="900" fill="#fbe6c4" opacity=".4"/><circle cx="640" cy="90" r="90" fill="#f3d9b5" opacity=".6"/>
+<path d="M-200 300Q100 230 300 290T700 270T1000 300V400H-200z" fill="#A9B8A1"/>${[...Array(9)].map((_,i)=>`<rect x="${i*100-20}" y="250" width="6" height="90" fill="#4a3b30"/><circle cx="${i*100-17}" cy="240" r="38" fill="#7f9378" opacity=".85"/>`).join('')}
+<rect x="60" y="260" width="180" height="90" fill="#d9dad6"/><path d="M50 262L150 228L250 262z" fill="#252525"/><rect x="-200" y="342" width="1300" height="300" fill="#93a58b"/><path d="M-200 405Q400 380 1000 405V600H-200z" fill="#c9c3ad" opacity=".7"/>
+${anik('a3',0,1)}${nubah('n3',0,1)}<rect class="warm" x="-200" y="-200" width="1200" height="900" fill="#D97836" opacity="0"/>`);
+b[3]=tl=>{const S=(t,x)=>sub(tl,t,x);gsap.set('#a3',{x:-80,y:400});gsap.set('#n3',{x:560,y:400});gsap.set('#n3 .f',{scaleX:-1});gsap.set('#n3 .bq',{opacity:0});
+walk(tl,'a3',-80,340,5,.3);S(1,'এই ২৪টি গোলাপ শুধু ফুল নয়...');
+tl.to('#n3 .hd',{rotation:4,transformOrigin:NP,duration:1.2},4).to('#s3 .cm2',{rotation:-2.5,svgOrigin:'400 225',duration:9,ease:'sine.inOut'},3).to('#s3 .cm2',{rotation:2,duration:8,ease:'sine.inOut'},12).to('#s3 .warm',{opacity:.14,duration:6},6);
+S(7,'এগুলো কিছু স্মৃতি, কিছু স্বপ্ন আর তোমার জন্য জমে থাকা একগুচ্ছ অনুভূতি।');
+tl.to('#a3 .bq',{x:55,duration:1.4,ease:'power2.inOut'},9).to('#a3 .bq',{opacity:0,duration:.4},10.6).to('#n3 .bq',{opacity:1,duration:.4},10.6).to('#a3',{x:325,duration:1},10.8);
+tl.to('#s3 .cam',{scale:4.8,svgOrigin:'540 322',duration:3.5,ease:'power2.inOut'},12.5);S(14,'শুভ জন্মদিন, নুবাহ্।');
+tl.to('#s3 .cam',{scale:14,duration:2.2,ease:'power3.in'},17.5)};
+
+const cafe=k=>`${BG('#efe3d0')}<rect x="-200" y="330" width="1200" height="300" fill="#b58a62"/>
+<rect x="620" y="50" width="150" height="200" rx="75" fill="#bcd0bd"/><path d="M630 150H760M695 50V250" stroke="#fffaf0" stroke-width="6"/><rect x="620" y="50" width="150" height="200" rx="75" fill="none" stroke="#fffaf0" stroke-width="8"/>
+<path d="M680 250L560 330H300L420 250z" fill="#fff6dd" opacity=".35"/>
+<g stroke="#4a6b4a" stroke-width="3" fill="none"><path d="M60 0V70M100 0V90M140 0V60"/></g><g fill="#6f8f66"><ellipse cx="60" cy="80" rx="18" ry="10"/><ellipse cx="100" cy="100" rx="20" ry="11"/><ellipse cx="140" cy="70" rx="16" ry="9"/></g>
+<rect x="20" y="150" width="110" height="8" fill="#6b4a32"/><g fill="#6f8f66"><circle cx="50" cy="138" r="12"/><circle cx="66" cy="132" r="10"/></g><rect x="38" y="140" width="34" height="12" fill="#c4683a"/>
+<text x="330" y="70" fill="#D97836" font-size="20" font-family="Hind Siliguri,serif" text-anchor="middle">অনেস্ট ক্যাফে · ৩য় তলা</text>
+<rect x="190" y="205" width="12" height="150" rx="5" fill="#7a4a2e"/><rect x="598" y="205" width="12" height="150" rx="5" fill="#7a4a2e"/>
+${anik('a'+k,1)}${nubah('n'+k,1)}<rect x="150" y="318" width="500" height="14" rx="4" fill="#8a5a3b"/><rect x="150" y="332" width="500" height="140" fill="#6f4730"/>`;
+const cups=()=>[330,470].map(x=>`<g class="cup" transform="translate(${x} 314)"><ellipse rx="18" ry="5" fill="#f4efe4"/><path d="M-12 -14h24l-3 14h-18z" fill="#fff"/><path class="st" d="M-3 -18q-5-8 0-14" stroke="#fff" fill="none" opacity=".6"/></g>`).join('');
+sc[4]=()=>SVG(`${cafe(4)}<g id="bt4" transform="translate(400 272) scale(.8)"><g class="bq">${bqt()}</g></g>${cups()}<rect id="dm4" x="-200" y="-200" width="1200" height="900" fill="#1a1008" opacity="0"/>`)+'<div class="tag">কল্পনার একটি দৃশ্য</div>';
+b[4]=tl=>{const S=(t,x)=>sub(tl,t,x);gsap.set('#a4',{x:250,y:345});gsap.set('#n4',{x:560,y:345});gsap.set('#n4 .f',{scaleX:-1});gsap.set('#s4 .cup',{opacity:0});
+tl.fromTo('#s4 .cam',{scale:1,svgOrigin:'400 260'},{scale:1.2,duration:20,ease:'sine.inOut'},0).fromTo('#s4 .cm2',{rotation:-1.5,svgOrigin:'400 260'},{rotation:1.5,duration:20,ease:'sine.inOut'},0)
+.from('#a4,#n4',{opacity:0,y:'+=14',duration:1,stagger:.4},.3).from('#bt4',{y:60,opacity:0,duration:1.2,ease:'power2.out'},3)
+.to('#s4 .cup',{opacity:1,duration:.6,stagger:.5},7).to('#s4 .st',{y:-6,opacity:.2,duration:1.5,repeat:10,yoyo:true},7);
+S(1.5,'কখনো কখনো খুব সাধারণ মুহূর্তগুলোই সবচেয়ে সুন্দর স্মৃতি হয়ে থাকে।');S(7,'এক কাপ কফি, কিছু গল্প আর পরিচিত একজন মানুষের উপস্থিতি।');
+S(13,'তোমাকে বড় হতে দেখা, নিজের স্বপ্ন পূরণ করতে দেখা—এমন অনেক সুন্দর স্বপ্ন একদিন মনে এঁকেছিলাম।');
+tl.to('#bt4',{opacity:0,duration:1},17).to('#dm4',{opacity:.55,duration:3},17.5)};
+
+sc[5]=()=>SVG(`${cafe(5)}<g transform="translate(610 292) scale(.45)"><g class="bq">${bqt()}</g></g><rect x="-200" y="-200" width="1200" height="900" fill="#1a1008" opacity=".55"/>
+<radialGradient id="gl"><stop offset="0" stop-color="#ffb347" stop-opacity=".85"/><stop offset="1" stop-color="#ffb347" stop-opacity="0"/></radialGradient><circle id="glw" cx="400" cy="250" r="260" fill="url(#gl)" opacity="0"/>
+<g transform="translate(400 318) scale(1.35)"><g id="ck">
+<ellipse cx="0" cy="3" rx="84" ry="9" fill="#e9e3d6" stroke="#cfc8b6"/>
+<g class="c1"><rect x="-60" y="-34" width="120" height="34" rx="3" fill="#f3ece0"/><rect x="-60" y="-14" width="120" height="6" fill="#252525"/></g>
+<g class="c2"><rect x="-42" y="-64" width="84" height="30" rx="3" fill="#f8f4ea"/></g>
+<g class="cr"><path d="M-60 -34q10 12 20 0t20 0t20 0t20 0t20 0t20 0" stroke="#fffdf6" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M-42 -64q10.5 12 21 0t21 0t21 0t21 0" stroke="#fffdf6" stroke-width="6" fill="none" stroke-linecap="round"/></g>
+<g class="dt">${[...Array(7)].map((_,i)=>`<circle cx="${-48+i*16}" cy="-22" r="2.6" fill="#D97836"/>`).join('')}</g>
+${[-24,-12,0,12,24].map(x=>`<g class="cd" transform="translate(${x} -68)"><rect x="-2" y="-30" width="4" height="30" fill="#d9d4c3"/><g class="fl" transform="translate(0 -36)"><ellipse rx="4" ry="7" fill="#ffb347"/><ellipse ry="3.5" rx="2" cy="2" fill="#fff3c0"/></g></g>`).join('')}
+<g class="rs">${[-32,-16,0,16,32].map((x,i)=>`<g transform="translate(${x} ${-68+(i%2)*3})">${rose(8)}</g>`).join('')}<ellipse cx="-44" cy="-64" rx="8" ry="3" fill="#7f9378"/><ellipse cx="44" cy="-64" rx="8" ry="3" fill="#7f9378"/></g>
+</g></g>`)+'<div class="bd" id="bd"><b>শুভ ২৪তম জন্মদিন, নুবাহ্</b><span>তোমার আগামী দিনগুলো সুন্দর হোক।</span></div><div class="tag">কল্পনার একটি দৃশ্য</div>';
+b[5]=tl=>{const S=(t,x)=>sub(tl,t,x);gsap.set('#a5',{x:250,y:345});gsap.set('#n5',{x:560,y:345});gsap.set('#n5 .f',{scaleX:-1});gsap.set('#s5 .fl',{scale:0});
+tl.fromTo('#s5 .c1',{scaleY:0,transformOrigin:'50% 100%'},{scaleY:1,duration:.9,ease:'back.out(1.4)'},.8)
+.from('#s5 .c2',{y:-45,opacity:0,duration:1,ease:'bounce.out'},2).from('#s5 .cr',{scaleX:0,transformOrigin:'0% 50%',opacity:0,duration:1.2},3.4)
+.from('#s5 .dt circle',{scale:0,transformOrigin:'50% 50%',duration:.3,stagger:.1},4.8).from('#s5 .rs > g',{scale:0,transformOrigin:'50% 50%',duration:.4,stagger:.15,ease:'back.out(2)'},5.8)
+.from('#s5 .cd rect',{scaleY:0,transformOrigin:'50% 100%',duration:.6,stagger:.12},7).to('#s5 .fl',{scale:1,duration:.4,stagger:.45,ease:'back.out(3)'},8.2)
+.to('#glw',{opacity:1,duration:2.5},9.6).to('#s5 .fl',{scaleY:1.2,scaleX:.9,duration:.18,repeat:60,yoyo:true,ease:'sine.inOut',stagger:.05},10.5)
+.to('#s5 .cam',{scale:1.5,svgOrigin:'400 225',duration:5,ease:'power2.inOut'},11).to('#bd',{opacity:1,duration:1.4},13.5);
+S(10.5,'তোমার প্রতিটি নতুন বছর নিয়ে আসুক নতুন সম্ভাবনা।');S(14.5,'তোমার স্বপ্নগুলো পূর্ণতা পাক।');S(18,'নিজের মতো করে সুন্দর থেকো, নুবাহ্।');tl.to({},{duration:1},22)};
+
+const LET=['নুবাহ্,','তোমাকে নিয়ে একসময় অনেক সুন্দর স্বপ্ন দেখেছিলাম।','তোমাকে বড় হতে দেখা, নিজের স্বপ্ন পূরণ করতে দেখা, তোমার প্রতিটি ছোট্ট সাফল্যে খুশি হওয়া—এমন অনেক মুহূর্ত কল্পনায় সাজিয়েছিলাম।','তোমার সঙ্গে কাটানো সময়, তোমার পরিচিত ঘ্রাণ, তোমার হাসি আর আমাদের ছোট ছোট কথাগুলো আমার স্মৃতিতে থেকে যাবে।','একসময় তোমার প্রতিদিনের খোঁজ নেওয়াটা আমার অভ্যাস ছিল।','খেয়েছো কি না, শরীর ভালো আছে কি না, বাসায় পৌঁছেছো কি না—এই সাধারণ প্রশ্নগুলোর মধ্যেও আমার অনেক যত্ন লুকিয়ে থাকত।','আমি চেয়েছিলাম তোমার জীবনের কঠিন সময়গুলো একটু সহজ করতে। তোমার স্বপ্নের পথে পাশে থাকতে।','জীবন সবসময় আমাদের কল্পনার মতো হয় না। তবুও তোমার প্রতি আমার শুভকামনাগুলো সত্যি।','তোমার আগামী দিনগুলো সুন্দর হোক। তুমি নিজের স্বপ্ন পূরণ করো, নিজের মতো করে এগিয়ে যাও।','কখনো যদি স্বাভাবিকভাবে কথা বলার ইচ্ছে হয়, আমার সঙ্গে যোগাযোগ করতে পারো। আর যদি না হয়, তোমার সিদ্ধান্তকেও সম্মান করব।','তোমার জন্য আমার দরজা খোলা থাকার কথাটা কোনো প্রত্যাশা নয়, শুধু একটা আন্তরিক অনুভূতি।','আমি তোমাকে ভালোবেসেছিলাম, নুবাহ্। সেই অনুভূতির সুন্দর অংশগুলো আমি সম্মানের সঙ্গেই মনে রাখতে চাই।','আজকের দিনটা তোমার জন্য অনেক সুন্দর হোক।','Happy Birthday, Nubah.','— Anik Biswas'];
+const PT=[[80,0],[190,-60],[300,-20],[420,-90],[520,-30],[610,-70],[700,-10],[760,-50]];
+sc[6]=()=>SVG(`${BG('#F8F8F5')}<path d="M0 410H800" stroke="#D9DAD6"/>${PT.map(p=>`<ellipse class="pt" cx="${p[0]}" cy="${p[1]}" rx="5" ry="9" fill="#1c1c1c" opacity=".85"/>`).join('')}<g class="side">${anik('a6',0)}<g transform="translate(205 392) rotate(-16)"><g class="bq">${bqt()}</g></g></g>`)+`<div id="lt" tabindex="0" aria-label="চিঠি">${LET.map(t=>`<p>${t.split(' ').map(w=>`<span class="w">${w}</span>`).join(' ')}</p>`).join('')}</div><div id="fin"><h2>24 BLACK ROSES</h2><p>A Story Written With Memories.</p><p>For Nubah, With Respect.</p><p>— Anik</p></div>`;
+b[6]=tl=>{gsap.set('#a6',{x:90,y:410,scale:.8});
+gsap.utils.toArray('#s6 .pt').forEach((p,i)=>gsap.to(p,{y:520+i*10,rotation:90,duration:12+i,repeat:-1,delay:i*1.3,ease:'none'}));
+const lt=$('#lt');let follow=true;['wheel','touchstart'].forEach(e=>lt.addEventListener(e,()=>follow=false,{passive:true}));
+const W=gsap.utils.toArray('#s6 .w');
+if(matchMedia('(prefers-reduced-motion:reduce)').matches){gsap.set(W,{opacity:1});gsap.set('#fin',{opacity:1});gsap.set('#lt',{opacity:0});return}
+tl.fromTo('#lt',{opacity:0,y:20},{opacity:1,y:0,duration:2},1.5).to(W,{opacity:1,duration:.5,stagger:.11},3.5);
+tl.eventCallback('onUpdate',()=>{if(follow)lt.scrollTop=lt.scrollHeight;prog()});
+tl.to('#lt',{opacity:0,duration:2},'>+3').to('#fin',{opacity:1,duration:2.5},'>-.5')};
+
+let cur=-1,tl,ctx,auto=true,tm,tk=0,N=7;
+const stage=$('#stage'),dots=$('#dots');
+for(let i=0;i<N;i++){const d=document.createElement('i');d.onclick=()=>goTo(i);dots.appendChild(d)}
+const prog=()=>{$('#bar').style.width=((cur+(tl?tl.progress():0))/N*100)+'%'};
+function goTo(i){i=Math.max(0,Math.min(N-1,i));clearTimeout(tm);const my=++tk;
+const run=()=>{if(my!==tk)return;ctx&&ctx.revert();stage.innerHTML=`<section class="sc" id="s${i}">${sc[i]()}</section>`;cur=i;setSub('');
+ctx=gsap.context(()=>{gsap.to('.bl',{scaleY:.1,transformOrigin:'50% 50%',duration:.09,repeat:-1,repeatDelay:3.2,yoyo:true});
+tl=gsap.timeline({onUpdate:prog,onComplete:()=>{if(auto&&i<N-1)tm=setTimeout(()=>goTo(i+1),1500)}});b[i](tl);if(!auto)tl.pause()},stage);
+[...dots.children].forEach((d,k)=>d.classList.toggle('on',k===i));gsap.fromTo(stage,{opacity:0},{opacity:1,duration:.8})};
+cur<0?run():gsap.to(stage,{opacity:0,duration:.4,onComplete:run})}
+$('#go').onclick=()=>{gsap.to('#intro',{opacity:0,duration:.8,onComplete:()=>$('#intro').remove()});$('#ctl').hidden=false;goTo(0)};
+$('#bn').onclick=()=>goTo(cur+1);$('#bp').onclick=()=>goTo(cur-1);$('#br').onclick=()=>goTo(0);
+$('#bpl').onclick=()=>{auto=!auto;$('#bpl').textContent=auto?'❚❚':'▶';auto?(tl&&tl.play()):(tl&&tl.pause());clearTimeout(tm);if(auto&&tl&&tl.progress()===1)goTo(cur+1)};
+addEventListener('keydown',e=>{if(e.key==='ArrowRight')goTo(cur+1);if(e.key==='ArrowLeft')goTo(cur-1)});
+let wl=0;addEventListener('wheel',e=>{if(e.target.closest('#lt')||cur<0||Date.now()-wl<1100||Math.abs(e.deltaY)<30)return;wl=Date.now();goTo(cur+(e.deltaY>0?1:-1))},{passive:true});
+let ty=0;addEventListener('touchstart',e=>ty=e.touches[0].clientY,{passive:true});
+addEventListener('touchend',e=>{if(e.target.closest('#lt')||e.target.closest('#ctl')||cur<0)return;const d=ty-e.changedTouches[0].clientY;if(Math.abs(d)>60)goTo(cur+(d>0?1:-1))});
+let ac,on=false,mi;const NT=[261.6,329.6,392,440,523.3,392,329.6,293.7];
+const note=f=>{const o=ac.createOscillator(),g=ac.createGain(),t=ac.currentTime;o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.07,t+.03);g.gain.exponentialRampToValueAtTime(.0001,t+2.4);o.connect(g).connect(ac.destination);o.start();o.stop(t+2.5)};
+$('#bm').onclick=()=>{if(on){on=false;clearInterval(mi);$('#bm').style.opacity=.5;return}on=true;ac=ac||new(window.AudioContext||window.webkitAudioContext)();ac.resume();$('#bm').style.opacity=1;let k=0;mi=setInterval(()=>note(NT[k++%8]*(Math.random()<.2?.5:1)),950)};
+$('#bm').style.opacity=.5;
+</script>
+</body>
+</html>
